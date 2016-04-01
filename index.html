@@ -626,9 +626,8 @@
 					return row['cluster'] == "K3";
 				});
 				 
-				var clusters = svg3.selectAll(".centres").data(data);
-				 
-				clusters.enter().append('circle')
+				svg3.selectAll(".centres").data(data);
+					.enter().append('circle')
 					.attr("class", "centres")
 				    .attr("cx", function(d) {
 						return projection([d.lon, d.lat])[0];
@@ -637,7 +636,7 @@
 						return projection([d.lon, d.lat])[1];
 					})
 				   .attr("r", 10)
-				   .style("fill", "black")
+				   .style("fill", "black");
 				   
 				//clusters.exit().remove();
 			});
