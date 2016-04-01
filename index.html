@@ -617,29 +617,6 @@
 				   .style("fill", function(d) {return color(cValue(d['K3']));})
 				   .style("opacity", 0.75);	
 			});
-	
-	
-
-			// Plots cluster centres
-			d3.csv("clusters.csv", function(error, data) {
-				data = data.filter(function(row) {
-					return row['cluster'] == "K3";
-				});
-				 
-				svg3.selectAll(".centres").data(data);
-					.enter().append('circle')
-					.attr("class", "centres")
-				    .attr("cx", function(d) {
-						return projection([d.lon, d.lat])[0];
-					})
-				    .attr("cy", function(d) {
-						return projection([d.lon, d.lat])[1];
-					})
-				   .attr("r", 10)
-				   .style("fill", "black");
-				   
-				//clusters.exit().remove();
-			});
 			
 			
 			
