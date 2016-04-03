@@ -96,7 +96,9 @@
 	
 		<h2> Assignment 2B:  Visualisation 1</h2>
 		
-		<p> The following visualisation shows the ratio between Vehicle Theft and Prostitution crimes in the 10 police districts of the San Francisco Police Department. Large circles indicates that the overall crime ratio of the district is high, while small circles indicate that the overall crime rate in the district is low. <strong>In order to make a fair comparison between crime numbers from 2003 and 2015 the axes were chosen to be the same for both datasets. </strong> To toggle between data from 2003 and 2015, press the buttons below:</p> 
+		<p> The following visualisation plots the number of vehicle theft crimes against the number of prostitution crimes with each point corresponding to one of 10 police districts of the San Francisco Police Department. By holding the cursor over a point the district name of the point will appear. The sizes of the circles are proportional to the overall number of crimes.</p>
+		<p> In order to show the changes from 2003 to 2015 in a clear visual manner, the axes are chosen to be the same for both data sets.</p>
+		<p> To toggle between data from 2003 and 2015, press the buttons below:</p>
 		<div id="scatteroption">
 			<input name="2003" 
 			   type="button" 
@@ -152,6 +154,7 @@
 					
 			// Insert title
 			scattertitle = svg1.append("text")
+				.attr("font-family", "Century Gothic")
 				.attr("class", "title")
 				.attr("x", (width / 2))             
 				.attr("y", 0 - (margin.top / 2))
@@ -319,7 +322,8 @@
 	
 		<h2>Assignment 2C: Visualisation 2</h2>
 
-		<p> In this visualisation, we look at how the total amount of crimes commited from a certain category across the 13 year span in all San Francisco Police Districts are spread across each year. The height of each bar in the histogram corresponds to the percentage of crimes of that category commited within the corresponding year. To switch between the different focus crimes, press the buttons:</p>
+		<p>In this visualisation, we plot the temporal development of various crimes between the years 2003 and 2015 in all San Francisco Police Districts. The height of each bar in the histogram corresponds to the percentage of crimes of that category commited within the corresponding year compared to the entire period 2003-2015.</p>
+		<p>To switch between the different focus crimes press on the buttons below:</p>
 		
 		<div id="histoption1">
 			<input name="Vehicle theft" 
@@ -413,6 +417,7 @@
 
 			// Insert title
 			histtitle = svg2.append("text")
+				.attr("font-family", "Century Gothic")
 				.attr("class", "title")
 				.attr("x", (width / 2))             
 				.attr("y", 0 - (margin.top / 2))
@@ -512,7 +517,8 @@
 		
 		<h2>Assignment 2D:Prostitution in San Francisco - K-means clustering</h2>
 
-		<p> Add explicative text here :D</p>
+		<p> In this exercise, we wanted to explore the main locations, or clusters, in San Francisco where Prostitution crimes occur. Each point in the plot corresponds to a Prostitution crime which has taken place between 2003 and 2015.</p>
+		<p> The clustering is performed by the K-means algorithms for various initial number of cluster centres, <i>K</i>. The cluster centres are plotted as black dots and cluster membership is indicated by the colours.</p>
 		
 		<div id="option">
 		<input name="k2" 
@@ -559,6 +565,7 @@
 
 			// Insert title
 			maptitle = svg3.append("text")
+				.attr("font-family", "Century Gothic")
 				.attr("class", "title")
 				.attr("x", 43)             
 				.attr("y", 20)
@@ -614,8 +621,8 @@
 						   return projection([d.lon, d.lat])[1];
 				   })
 				   .attr("r", rRad)
-				   .style("fill", function(d) {return color(cValue(d['K3']));})
-				   .style("opacity", 0.75);	
+				   .style("fill", function(d) {return color(cValue(d['K3']));});
+				   //.style("opacity", 0.75);	
 			});
 			
 			
@@ -625,20 +632,23 @@
 				maptitle.text("Showing " + k);
 				updateCentres(k);
 				updateColours(k);
-			}
-			
+			}			
 			var updateCentres = function(k) {
 				d3.csv("clusters.csv", function(error, data) {
 					if (error) throw error;
 					 
+					// Extract needed data
 					data = data.filter(function(row) {
 						return row['cluster'] == k;
 					});
-					 
+					
+					// Bind data
 					var clusters = svg3.selectAll(".centres").data(data);
 					 
+					// Enter data
 					clusters.enter().append("circle").attr("class", "centres");
-					 
+					
+					// Update
 					clusters.transition()
 					    .duration(2000)
 					    .attr("cx", function(d) {
@@ -650,11 +660,10 @@
 					    .attr("r", 10)
 					    .style("fill", "black");
 								
-						// Exit
-						clusters.exit().remove();						   
+					// Exit
+					clusters.exit().remove();						   
 				});
-			}
-			
+			}			
 			var updateColours = function(k) {
 				svg3.selectAll(".clusterpoints")
 					   .transition()
@@ -662,6 +671,7 @@
 					   .style("fill", function(d) {return color(cValue(d[k]));});
 			}
 		
+			// Plot the initial centres
 			updateCentres("K3");
 		</script>
 		
