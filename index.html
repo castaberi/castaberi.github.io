@@ -1,0 +1,438 @@
+
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html, charset=UTF-8" />
+	<title>NYC Restaurants</title>
+	
+	<!-- Meta -->
+	<meta charset = "UTF-8" />
+	
+	<!-- Responsive stylesheet -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!-- IE stylesheet -->
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/styles/ie.css" /><![endif]-->
+	
+	<!-- RSS Feed -->
+	<!-- <link rel="alternate" type="application/rss+xml" title="Clutterless Demo RSS Feed" href="http://hitdelete.com/demo-clutterless/feed/" /> -->
+	
+	<!-- Pingbacks -->
+	<!--<link rel="pingback" href="http://hitdelete.com/demo-clutterless/xmlrpc.php" />-->
+	
+
+
+<link rel='stylesheet' id='clutterless-css'  href='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/style.css?ver=1.6' type='text/css' media='all' />
+<link rel='stylesheet' id='google-webfonts-nc-css'  href='http://fonts.googleapis.com/css?family=News+Cycle%3A400&#038;ver=4.5.2' type='text/css' media='all' />
+<link rel='stylesheet' id='google-webfonts-mw-css'  href='http://fonts.googleapis.com/css?family=Merriweather%3A700&#038;ver=4.5.2' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='sccss_style-css'  href='http://hitdelete.com/demo-clutterless?sccss=1&#038;ver=4.5.2' type='text/css' media='all' />
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js?ver=4.5.2'></script>
+<!-- <script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/jquery.fitvids.min.js?ver=4.5.2'></script>-->
+<!--<script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/clutterless-fitvids.js?ver=4.5.2'></script>-->
+<!--<script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/css-browser-selector.js?ver=4.5.2'></script>-->
+<link rel='https://api.w.org/' href='http://hitdelete.com/demo-clutterless/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://hitdelete.com/demo-clutterless/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://hitdelete.com/demo-clutterless/wp-includes/wlwmanifest.xml" /> 
+
+
+	<!-- Embedded WP Customizer Code Start-->
+	<style>
+		body
+		{background: #F8F8F8;}
+		#sidebar-name .sidebar-name-wrap,#sidebar-inner
+		{background: #18BCEB !important;}
+		#sidebar,#sidebar a,#sidebar-inner #search #search-form #search-field
+		{color:#FFFFFF;}
+		#content
+		{color: ; text-shadow: 0 1px 0 #FFFFFF;}
+		#content .post-title h2, #content .post-title h2 a
+		{color: #333333;}
+		#content  .post-content h2,#content  .post-content h3,#content  .post-content h4
+		{color: #444444;}
+		#content  .post-date, #content  .post-date a, #return a
+		{color: #999999;}
+		#content .post-content a
+		{color: #444444;  border-bottom: 1px dotted #444444;}
+		#content .post-content a:hover
+		{color: #18BCEB;  border-bottom: 1px dotted #18BCEB;}
+		html { min-width: 960px; }
+		
+		
+		
+		
+		
+		
+		#boroughs {
+		  stroke: grey;
+			stroke-width: 2px;
+			fill: steelblue;
+		}
+
+		.legend {
+		  font-size: 14px;
+		}
+
+		.zipcode path{
+		  stroke: #fff;
+		  stroke-linejoin: round;
+		  opacity: 1;
+		}
+
+		div.mouseover{
+			position: absolute;
+			background: black;
+			background-color: rgba(0,0,0,0.5);
+			border: 1px solid #131313;
+			color: white;
+			padding: 5px 8px;
+			margin-left: 100px;
+			margin-top: 50px;
+			display: none;
+		}
+
+
+		#horizon-controls {
+		  position: absolute;
+		  width: 940px;
+		  padding: 10px;
+		  z-index: 1;
+		}
+
+		#horizon-bands {
+		  float: right;
+		}
+				
+		
+		
+	</style>
+	</head>
+	
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="colorbrewer.min.js"></script>
+
+	
+	
+<body class="home blog" id="ajax-on">  
+
+<div class="mouseover"></div>
+
+
+
+  <div id="ipad-click"><div id="content">	
+         <div id="post">                       
+            <div class="post" id="post-869" class="post-869 post type-post status-publish format-standard hentry category-blog">
+
+  <div class="post-date">
+    <a>17 May 2016</a>
+  </div><!-- .post-date -->
+
+  <div class="post-title">
+    <h2>A Long Post With Various Elements With A Ridiculously Long Title</a></h2> 
+  </div><!-- .post-title -->
+
+  <div class="post-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam odio quam, tempor non adipiscing nec, aliquet quis arcu. Fusce id purus dui, a tempus quam. Donec gravida commodo felis vel venenatis. Morbi sit amet tempus augue. Aenean sagittis condimentum hendrerit.</p>
+<p><strong>Bold text uisque at pellentesque leo</strong>. Morbi lectus nunc, commodo ac pellentesque id, varius vel enim. Maecenas eu pulvinar eros. Sed libero tortor, lobortis malesuada ornare ac, feugiat scelerisque leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id placerat dui. Sed ac commodo ipsum.</p>
+<blockquote><p>Blockquote. Donec at libero id lectus porta dapibus eu in nibh. Cras id mauris sapien. Fusce viverra luctus urna ac rutrum. Duis semper elit eu mi facilisis eleifend. Donec semper, ipsum in malesuada congue, purus sem ullamcorper massa, sit amet lacinia nibh enim sed massa. Integer hendrerit pulvinar ante ac ultrices. In eget magna non urna gravida congue.</p></blockquote>
+<p>Cras eget sem nisi, convallis pharetra tortor. Donec sed felis odio, vitae pharetra lorem. Fusce quis augue arcu, in ultricies enim. Morbi id urna quam, et consectetur nisi. Suspendisse potenti. Donec imperdiet venenatis pharetra. Integer et risus metus. Maecenas et leo tellus, feugiat sodales elit. <em>Some italic text sed mi est, commodo ut egestas hendrerit, pulvinar et dui</em>. Vestibulum lacus urna, luctus eu iaculis vel, suscipit quis sapien. Phasellus enim justo, adipiscing sit amet fermentum ut, scelerisque sit amet dolor. In hac habitasse platea dictumst.</p>
+<p>Morbi et tortor at lorem egestas dictum. Aenean vehicula augue sit amet risus luctus vel <a href="#" target="_blank">a text link lobortis nunc accumsan</a>. Nunc viverra elit ut nisi lobortis eu luctus velit interdum. Donec non nisi lorem. Aliquam vitae mauris odio. Sed fringilla vulputate dui id tincidunt. Duis ut dui id orci viverra consequat. Suspendisse pretium, lacus in interdum interdum, urna turpis rutrum diam, vitae blandit lorem quam ac velit. Morbi ante purus, rutrum vel fringilla id, feugiat ac urna. Cras pulvinar eleifend erat, eu auctor justo aliquet vel. Ut commodo cursus massa, vel blandit neque rhoncus non. Cras enim leo, dignissim at feugiat sit amet, ultrices non ante. Cras tempus elit eu nunc consectetur pretium. Integer sit amet augue erat, vitae semper eros.</p>
+<h3>Heading Three Aenean Venenatis Luctus</h3>
+<p>Ut gravida luctus commodo. Nulla at lectus tortor. Sed nec suscipit dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis augue in orci ultrices pharetra. Vestibulum ipsum diam, sagittis sed elementum vulputate, suscipit vel sapien. In risus dolor, hendrerit non convallis vel, congue a mauris. Duis tincidunt vehicula tellus in fringilla. Aliquam at turpis nibh.</p>
+<ul>
+<li>Duis non dolor libero</li>
+<li>Eu hendrerit est</li>
+<li>Fusce lorem ante</li>
+<li>Molestie sodales eleifend in</li>
+<li>Hendrerit sed urna</li>
+</ul>
+<p>Donec at libero id lectus porta dapibus eu in nibh. Cras id mauris sapien. Fusce viverra luctus urna ac rutrum. Duis semper elit eu mi facilisis eleifend. Donec semper, ipsum in malesuada congue, purus sem ullamcorper massa, sit amet lacinia nibh enim sed massa. Integer hendrerit pulvinar ante ac ultrices. In eget magna non urna gravida congue.</p>
+<ol>
+<li>Duis non dolor libero</li>
+<li>Eu hendrerit est</li>
+<li>Fusce lorem ante</li>
+<li>Molestie sodales eleifend in</li>
+<li>Hendrerit sed urna</li>
+</ol>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam odio quam, tempor non adipiscing nec, aliquet quis arcu. Fusce id purus dui, a tempus quam. Donec gravida commodo felis vel venenatis. Morbi sit amet tempus augue. Aenean sagittis condimentum hendrerit.</p>
+<h4>Heading Four Sit Amet Dictum Ante</h4>
+<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+
+
+<div id="horizon-controls">
+  <input name="mode" type="radio" value="N_REST" id="mode-nrest" checked onclick="updateMap('N_REST')"><label for="mode-nrest"> Number of restaurants</label>
+  <input name="mode" type="radio" value="AVG_SCORE" id="mode-score" onclick="updateMap('AVG_SCORE')"><label for="mode-score"> Average score</label>
+</div>
+<div id="chart" align="center"></div>
+<script>
+	//Width and height
+	var width = 800,
+	height = 600;
+	
+	xlegend = 0;
+	ylegend = 50;
+	
+	//Define default colorbrewer scheme
+	var colorSchemeSelect = "Blues";
+	var colorScheme = colorbrewer[colorSchemeSelect]; 
+	//define default number of quantiles
+	var quantiles = 8;
+
+	// Designate quantile scale generator
+	// .range(colorScheme[quantiles].slice(4, 4 + 5););
+	var color = d3.scale.quantize()
+	.range(colorScheme[quantiles].slice(2, 2 + 6));
+	/*.range([
+		"#afc4ed",
+		"#7ba4f0",
+		"#558ef8",
+		"#2d73f6",
+		"#0a49c0",
+		"#073489"
+	]);*/
+	//color.domain([0, 673]);
+	//color.domain([2.0,33.5]);
+	
+	
+	//Create SVG element
+	var svg = d3.select("#chart").append("svg")
+		.attr("width", width)
+		.attr("height", height);
+
+
+	function getColor(color, d, varname){
+		var value=(d["properties"][varname]);
+		//console.log(value);
+		if(value>0){
+			return color(value);
+		}else{
+			return "lightgrey";
+		}
+	}
+	
+		var projection = d3.geo.mercator()
+						.center([-73.94, 40.70])
+						.scale(60000)
+						.translate([(width) / 2, (height)/2]);
+
+		var path = d3.geo.path()
+				.projection(projection);
+		
+			
+    d3.json("data/nyc_zip.json", function(error, nyc) {
+		varname = "N_REST";
+		// Set the colour domain
+		var max_value = d3.max(d3.values(nyc.features), function(d) { return d.properties[varname];} );
+		var min_value = d3.min(d3.values(nyc.features), function(d) { 
+			if (d.properties[varname] <= 0) {
+				return; // count only positive values
+			}
+			return d.properties[varname];} );
+			
+		
+		color.domain([min_value, max_value]);
+	
+
+
+		//var g = svg.append("g");
+		
+		// Bind data
+		map = svg.append("g")
+			.attr("class", "zipcode")
+			.selectAll("path")
+			.data(nyc.features);
+		// Enter data
+		map.enter().append("path")
+			.attr("class", function(d){ return d.properties.name; })
+			.attr("d", path)
+			.style("fill",function(d){return getColor(color, d, varname);})
+			.on("mouseover",mouseover)
+			.on("mouseout",mouseout);
+		map.exit().remove();
+					
+			
+		// Add a legend
+		var legend = svg.selectAll('g.legend')
+			.data(color.range())
+			
+		// Enter data
+		legend.enter().append('g').attr('class', 'legend');
+			
+		legend
+			.append('rect')
+			.attr("x", width - 780 + xlegend)
+			.attr("y", function(d, i) {
+			   return i * 20 + ylegend;
+			})
+		   .attr("width", 20)
+		   .attr("height", 20)
+		   .style("fill", function(d){return d;}); 
+		   
+		var legendtext = svg.selectAll("text").data(color.range());
+		legendtext.attr("class", "update");
+			
+		legendtext.enter().append("text").attr("class","enter").attr("x", width - 755 + xlegend)
+			.attr("y", function(d, i) {
+			   return i * 20 + 4 + ylegend;
+			})
+			.attr("dy", "0.8em");
+
+		legendtext.text(function(d,i) {
+				var extent = color.invertExtent(d);
+				var format = d3.format(".0f");
+				return format(+extent[0]) + " - " + format(+extent[1]);
+			})
+		legendtext.exit().remove();	   
+		   
+		/*legend
+			.append('text')
+			.attr("class", "legendtext")
+			.attr("x", width - 755)
+			.attr("y", function(d, i) {
+			   return i * 20 + 4 + 40;
+			})
+			.attr("dy", "0.8em")
+			.text(function(d,i) {
+				var extent = color.invertExtent(d);
+				var format = d3.format(".0f");
+				return format(+extent[0]) + " - " + format(+extent[1]);
+			});
+		legend.exit().remove();*/
+			
+	});
+	
+	function updateMap(varname) {
+
+		if(varname == "N_REST") {
+			display_format = ".0f";
+		}
+		else if(varname == "AVG_SCORE") {
+			display_format = ".2f";
+		}
+		
+		d3.json("data/nyc_zip.json", function(error, nyc) {
+			// Set the colour domain
+			var max_value = d3.max(d3.values(nyc.features), function(d) { return d.properties[varname];} );
+			var min_value = d3.min(d3.values(nyc.features), function(d) { 
+			if (d.properties[varname] <= 0) {
+				return; // count only positive values
+			}
+			return d.properties[varname];} );
+			
+			
+			
+			if (varname == "AVG_SCORE" ) {
+				var color_domain = [13.8, 15.34, 16.02, 16.52, 17.22];
+
+				var color = d3.scale.threshold()
+					.domain(color_domain)
+			} else {										
+				var color = d3.scale.quantize().domain([min_value, max_value]);
+			}
+				
+			
+		color.range(colorScheme[quantiles].slice(2, 2 + 6));
+			
+
+			// Bind data
+			map = svg
+			  .selectAll("path")
+			  .data(nyc.features);			
+			// Enter data
+			map.enter().append("path")
+			.attr("class", function(d){ return d.properties.name; })
+			.attr("d", path)
+			.on("mouseover",mouseover)
+			.on("mouseout",mouseout)
+			// Update			
+			map.transition()
+			  .duration(1000)
+			  .style("fill",function(d){return getColor(color, d, varname);});
+			// Exit
+			map.exit().remove();
+			
+
+			
+			
+		var legendtext = svg.selectAll("text").data(color.range());
+		legendtext.attr("class", "update");
+			
+		legendtext.enter().append("text").attr("class","enter").attr("x", width - 755 + xlegend)
+			.attr("y", function(d, i) {
+			   return i * 20 + 4 + ylegend;
+			})
+			.attr("dy", "0.8em");
+
+		legendtext.text(function(d,i) {
+				var extent = color.invertExtent(d);
+				if(i == 0) {
+					extent[0] = min_value;
+				}
+				else if(i == 5) {
+					extent[1] = max_value;
+				}
+				var format = d3.format(display_format);
+				return format(+extent[0]) + " - " + format(+extent[1]);
+			})
+		legendtext.exit().remove();				
+	
+	
+		});
+	}
+	
+
+	
+	
+	
+	
+	function mouseover(d){
+		var avgscore = d3.round(d.properties["AVG_SCORE"],2);
+		var text="Restaurants: "+d.properties["N_REST"] + "<br/>"
+			+ "Average score: " + (avgscore < 0 ? "nan" : avgscore) + "<br/>"
+			+ "Borough: " + d.properties["PO_NAME"] + "<br/>"
+			+ "ZIP code: " + d.properties["ZIP"];
+		$(".mouseover").html(text);
+		$(".mouseover").css("display","inline");
+	}
+
+	function mouseout(){
+		d3.select("#arcSelection").remove();
+		$(".mouseover").text("");
+		$(".mouseover").css("display","none");
+	}
+	
+	// moves the mouseover box whenever the mouse is moved.
+	d3.select('html') // Selects the 'html' element
+		.on('mousemove', function()
+		{
+			var locs=d3.mouse(this);	// get the mouse coordinates
+
+			// add some padding
+			locs[0]+=15;
+			locs[1]+=5;
+
+			$("div.mouseover").css("margin-left",locs[0]);
+			$("div.mouseover").css("margin-top",locs[1]);
+		});
+</script>
+
+
+
+
+  </div><!-- .post-content -->
+
+  
+</div><!-- /.post -->                                   
+            <div class="navigation"></div><!-- AJAX navigation -->            
+          </div><!-- #post -->
+ </div></div><!-- #content #ipad-click --> 
+
+ <div class="clear"></div>
+
+
+
+</body>
+</html>
