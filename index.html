@@ -131,36 +131,27 @@
   </div><!-- .post-date -->
 
   <div class="post-title">
-    <h2>A Long Post With Various Elements With A Ridiculously Long Title</a></h2> 
+    <h2>Predicting NYC Restaurant Inspection Scores</a></h2> 
   </div><!-- .post-title -->
 
   <div class="post-content">
-            <p>New York City is home to approximately 26,000 food establishments of various sorts which we shall simply refer to collectively as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, you can read <a href="www.google.dk" target="_blank">DOHMH Blue Book</a>. </p>
-<p><strong>Bold text uisque at pellentesque leo</strong>. Morbi lectus nunc, commodo ac pellentesque id, varius vel enim. Maecenas eu pulvinar eros. Sed libero tortor, lobortis malesuada ornare ac, feugiat scelerisque leo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus id placerat dui. Sed ac commodo ipsum.</p>
-<blockquote><p>Blockquote. Donec at libero id lectus porta dapibus eu in nibh. Cras id mauris sapien. Fusce viverra luctus urna ac rutrum. Duis semper elit eu mi facilisis eleifend. Donec semper, ipsum in malesuada congue, purus sem ullamcorper massa, sit amet lacinia nibh enim sed massa. Integer hendrerit pulvinar ante ac ultrices. In eget magna non urna gravida congue.</p></blockquote>
-<p>Cras eget sem nisi, convallis pharetra tortor. Donec sed felis odio, vitae pharetra lorem. Fusce quis augue arcu, in ultricies enim. Morbi id urna quam, et consectetur nisi. Suspendisse potenti. Donec imperdiet venenatis pharetra. Integer et risus metus. Maecenas et leo tellus, feugiat sodales elit. <em>Some italic text sed mi est, commodo ut egestas hendrerit, pulvinar et dui</em>. Vestibulum lacus urna, luctus eu iaculis vel, suscipit quis sapien. Phasellus enim justo, adipiscing sit amet fermentum ut, scelerisque sit amet dolor. In hac habitasse platea dictumst.</p>
-<p>Morbi et tortor at lorem egestas dictum. Aenean vehicula augue sit amet risus luctus vel <a href="#" target="_blank">a text link lobortis nunc accumsan</a>. Nunc viverra elit ut nisi lobortis eu luctus velit interdum. Donec non nisi lorem. Aliquam vitae mauris odio. Sed fringilla vulputate dui id tincidunt. Duis ut dui id orci viverra consequat. Suspendisse pretium, lacus in interdum interdum, urna turpis rutrum diam, vitae blandit lorem quam ac velit. Morbi ante purus, rutrum vel fringilla id, feugiat ac urna. Cras pulvinar eleifend erat, eu auctor justo aliquet vel. Ut commodo cursus massa, vel blandit neque rhoncus non. Cras enim leo, dignissim at feugiat sit amet, ultrices non ante. Cras tempus elit eu nunc consectetur pretium. Integer sit amet augue erat, vitae semper eros.</p>
-<h3>Heading Three Aenean Venenatis Luctus</h3>
-<p>Ut gravida luctus commodo. Nulla at lectus tortor. Sed nec suscipit dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mollis augue in orci ultrices pharetra. Vestibulum ipsum diam, sagittis sed elementum vulputate, suscipit vel sapien. In risus dolor, hendrerit non convallis vel, congue a mauris. Duis tincidunt vehicula tellus in fringilla. Aliquam at turpis nibh.</p>
-<ul>
-<li>Duis non dolor libero</li>
-<li>Eu hendrerit est</li>
-<li>Fusce lorem ante</li>
-<li>Molestie sodales eleifend in</li>
-<li>Hendrerit sed urna</li>
-</ul>
-<p>Donec at libero id lectus porta dapibus eu in nibh. Cras id mauris sapien. Fusce viverra luctus urna ac rutrum. Duis semper elit eu mi facilisis eleifend. Donec semper, ipsum in malesuada congue, purus sem ullamcorper massa, sit amet lacinia nibh enim sed massa. Integer hendrerit pulvinar ante ac ultrices. In eget magna non urna gravida congue.</p>
-<ol>
-<li>Duis non dolor libero</li>
-<li>Eu hendrerit est</li>
-<li>Fusce lorem ante</li>
-<li>Molestie sodales eleifend in</li>
-<li>Hendrerit sed urna</li>
-</ol>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam odio quam, tempor non adipiscing nec, aliquet quis arcu. Fusce id purus dui, a tempus quam. Donec gravida commodo felis vel venenatis. Morbi sit amet tempus augue. Aenean sagittis condimentum hendrerit.</p>
-<h4>Heading Four Sit Amet Dictum Ante</h4>
-<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+      <p>New York City is home to approximately 26,000 food establishments of various sorts which we shall simply refer to collectively as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, you can read the <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59" target="_blank">DOHMH Blue Book</a>. </p>
+<p>Our <strong>goal</strong> is to investigate if it is possible to tell something about the hygiene and food safety of a restaurant based only on simple and readily available information such as the cuisine type and location of the restaurant. We will focus on the inspection scores as a measure for the hygiene of a restaurant. </p>
 
+<h3>The Data</h3>
+<p>The data on the NYC restaurant inspections are available on <a href='http://www.nyc.gov/html/doh/downloads/pdf/rii/blue-book.pdf' target="_blank">NYC Open Data</a>. In its entirety the data consist of about 560,000 records each corresponding to a single inspection. For each record there is information about the</p>
+<ul>
+<li>name and address of the restaurant</li>
+<li>cuisine</li>
+<li>date of inspection</li>
+<li>type of violations</li>
+<li>grade and score</li>
+</ul>
+<p>Since each restaurant may have been scored multiple times, we use the average score as a measure for a restaurant’s overall hygiene level. After some data cleansing we end up with a data set of 24,877 unique restaurant.</p>
+<p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is site where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>.</p>
+
+<h3>Geographical Information</h3>
+<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
 
 <div id="horizon-controls">
   <input name="mode" type="radio" value="N_REST" id="mode-nrest" checked onclick="updateMap('N_REST')"><label for="mode-nrest"> Number of restaurants</label>
@@ -418,6 +409,22 @@
 			$("div.mouseover").css("margin-top",locs[1]);
 		});
 </script>
+
+
+<h3>Cuisine Types</h3>
+<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+
+
+
+<h3>User Reviews</h3>
+<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+
+
+
+
+<h3>Discussion</h3>
+<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+
 
 
 
