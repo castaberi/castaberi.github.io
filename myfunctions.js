@@ -385,8 +385,6 @@ function makeBarPlot(dname) {
 			"Mediterranean": "'Mediterranean', 'French', 'Portuguese', 'Spanish', 'Greek', 'Turkish'",
 			"Seafood": "Seafood",
 			"Other": "'Other', 'Ice cream [...]', 'Juice, Smoothies, Fruit Salads', 'Bottled beverages', 'Fruits/vegatables', 'Nuts/Confectionary', 'Chicken', 'Delicatessen', 'Sandwiches','Salads','Tapas','Vegetarian', 'Pancakes/Waffles', 'Soups', 'Jewish/Kosher', 'Bagels/Pretzels', 'Hotdogs/Pretzels'"};
-		console.log(dict["test"]);
-		console.log(dict["test2"]);
 		
 		
 		
@@ -401,7 +399,7 @@ function makeBarPlot(dname) {
 			d3.select("#arcSelection").remove();
 			$(".mouseover").text("");
 			$(".mouseover").css("display","none");
-			$(".mouseover").css("width", "25%")
+			$(".mouseover").css("width", "25%");
 		}
 		
 		// moves the mouseover box whenever the mouse is moved.
