@@ -59,10 +59,7 @@
 		#content .post-content a:hover
 		{color: #18BCEB;  border-bottom: 1px dotted #18BCEB;}
 		html { min-width: 960px; }
-		
-		
-		
-		
+						
 		
 		
 		#boroughs {
@@ -72,7 +69,7 @@
 		}
 
 		.legend {
-		  font-size: 14px;
+		  font-size: 10px;
 		}
 
 		.zipcode path{
@@ -94,32 +91,59 @@
 		}
 
 
-		#horizon-controls {
+		#map-controls {
 		  position: absolute;
 		  width: 940px;
 		  padding: 10px;
 		  z-index: 1;
 		}
 
-		#horizon-bands {
-		  float: right;
+
+		#bar-controls {
+		  position: absolute;
+		  width: 940px;
+		  padding: 10px;
+		  z-index: 1;
 		}
-				
+
+						
+		.bar {
+			fill: steelblue;
+			-moz-transition: all 0.3s;
+			-o-transition: all 0.3s;
+			-webkit-transition: all 0.3s;
+			transition: all 0.3s;
+		}
+
+		.bar:hover {
+			fill: brown;
+		}
+
+		.x.axis path {
+		  display: none;
+		}
+
+		.axis path,
+		.axis line {
+		  font: 15px sans-serif;
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}	
 		
 		
 	</style>
-	</head>
+</head>
+	
 	
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="colorbrewer.min.js"></script>
-
+<script src="myfunctions.js"></script>
 	
 	
-<body class="home blog" id="ajax-on">  
-
+<body class="NYC Restaurants" id="ajax-on">  
 <div class="mouseover"></div>
-
 
 
   <div id="ipad-click"><div id="content">	
@@ -135,8 +159,13 @@
   </div><!-- .post-title -->
 
   <div class="post-content">
-      <p>New York City is home to approximately 26,000 food establishments of various sorts which we shall simply refer to collectively as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, you can read the <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59" target="_blank">DOHMH Blue Book</a>. </p>
+      <p>New York City is home to more than 24,000 food establishments of various sorts which we shall simply refer to collectively as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, you can read the <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59" target="_blank">DOHMH Blue Book</a>. </p>
 <p>Our <strong>goal</strong> is to investigate if it is possible to tell something about the hygiene and food safety of a restaurant based only on simple and readily available information such as the cuisine type and location of the restaurant. We will focus on the inspection scores as a measure for the hygiene of a restaurant. </p>
+
+
+
+
+
 
 <h3>The Data</h3>
 <p>The data on the NYC restaurant inspections are available on <a href='http://www.nyc.gov/html/doh/downloads/pdf/rii/blue-book.pdf' target="_blank">NYC Open Data</a>. In its entirety the data consist of about 560,000 records each corresponding to a single inspection. For each record there is information about the</p>
@@ -153,271 +182,39 @@
 <h3>Geographical Information</h3>
 <p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
 
-<div id="horizon-controls">
-  <input name="mode" type="radio" value="N_REST" id="mode-nrest" checked onclick="updateMap('N_REST')"><label for="mode-nrest"> Number of restaurants</label>
-  <input name="mode" type="radio" value="AVG_SCORE" id="mode-score" onclick="updateMap('AVG_SCORE')"><label for="mode-score"> Average score</label>
+<div id="map-controls">
+  <input name="mode1" type="radio" value="N_REST" id="mode-map-nrest" class="map-nrest" checked><label for="mode-map-nrest"> Number of restaurants</label>
+  <input name="mode1" type="radio" value="AVG_SCORE" id="mode-map-score" class="map-score"><label for="mode-map-score"> Average score</label>
 </div>
 <div id="chart" align="center"></div>
 <script>
-	//Width and height
-	var width = 800,
-	height = 600;
-	
-	xlegend = 0;
-	ylegend = 50;
-	
-	//Define default colorbrewer scheme
-	var colorSchemeSelect = "Blues";
-	var colorScheme = colorbrewer[colorSchemeSelect]; 
-	//define default number of quantiles
-	var quantiles = 8;
-
-	// Designate quantile scale generator
-	// .range(colorScheme[quantiles].slice(4, 4 + 5););
-	var color = d3.scale.quantize()
-	.range(colorScheme[quantiles].slice(2, 2 + 6));
-	/*.range([
-		"#afc4ed",
-		"#7ba4f0",
-		"#558ef8",
-		"#2d73f6",
-		"#0a49c0",
-		"#073489"
-	]);*/
-	//color.domain([0, 673]);
-	//color.domain([2.0,33.5]);
-	
-	
-	//Create SVG element
-	var svg = d3.select("#chart").append("svg")
-		.attr("width", width)
-		.attr("height", height);
-
-
-	function getColor(color, d, varname){
-		var value=(d["properties"][varname]);
-		//console.log(value);
-		if(value>0){
-			return color(value);
-		}else{
-			return "lightgrey";
-		}
-	}
-	
-		var projection = d3.geo.mercator()
-						.center([-73.94, 40.70])
-						.scale(60000)
-						.translate([(width) / 2, (height)/2]);
-
-		var path = d3.geo.path()
-				.projection(projection);
-		
-			
-    d3.json("nyc_zip.json", function(error, nyc) {
-		varname = "N_REST";
-		// Set the colour domain
-		var max_value = d3.max(d3.values(nyc.features), function(d) { return d.properties[varname];} );
-		var min_value = d3.min(d3.values(nyc.features), function(d) { 
-			if (d.properties[varname] <= 0) {
-				return; // count only positive values
-			}
-			return d.properties[varname];} );
-			
-		
-		color.domain([min_value, max_value]);
-	
-
-
-		//var g = svg.append("g");
-		
-		// Bind data
-		map = svg.append("g")
-			.attr("class", "zipcode")
-			.selectAll("path")
-			.data(nyc.features);
-		// Enter data
-		map.enter().append("path")
-			.attr("class", function(d){ return d.properties.name; })
-			.attr("d", path)
-			.style("fill",function(d){return getColor(color, d, varname);})
-			.on("mouseover",mouseover)
-			.on("mouseout",mouseout);
-		map.exit().remove();
-					
-			
-		// Add a legend
-		var legend = svg.selectAll('g.legend')
-			.data(color.range())
-			
-		// Enter data
-		legend.enter().append('g').attr('class', 'legend');
-			
-		legend
-			.append('rect')
-			.attr("x", width - 780 + xlegend)
-			.attr("y", function(d, i) {
-			   return i * 20 + ylegend;
-			})
-		   .attr("width", 20)
-		   .attr("height", 20)
-		   .style("fill", function(d){return d;}); 
-		   
-		var legendtext = svg.selectAll("text").data(color.range());
-		legendtext.attr("class", "update");
-			
-		legendtext.enter().append("text").attr("class","enter").attr("x", width - 755 + xlegend)
-			.attr("y", function(d, i) {
-			   return i * 20 + 4 + ylegend;
-			})
-			.attr("dy", "0.8em");
-
-		legendtext.text(function(d,i) {
-				var extent = color.invertExtent(d);
-				var format = d3.format(".0f");
-				return format(+extent[0]) + " - " + format(+extent[1]);
-			})
-		legendtext.exit().remove();	   
-		   
-		/*legend
-			.append('text')
-			.attr("class", "legendtext")
-			.attr("x", width - 755)
-			.attr("y", function(d, i) {
-			   return i * 20 + 4 + 40;
-			})
-			.attr("dy", "0.8em")
-			.text(function(d,i) {
-				var extent = color.invertExtent(d);
-				var format = d3.format(".0f");
-				return format(+extent[0]) + " - " + format(+extent[1]);
-			});
-		legend.exit().remove();*/
-			
-	});
-	
-	function updateMap(varname) {
-
-		if(varname == "N_REST") {
-			display_format = ".0f";
-		}
-		else if(varname == "AVG_SCORE") {
-			display_format = ".2f";
-		}
-		
-		d3.json("nyc_zip.json", function(error, nyc) {
-			// Set the colour domain
-			var max_value = d3.max(d3.values(nyc.features), function(d) { return d.properties[varname];} );
-			var min_value = d3.min(d3.values(nyc.features), function(d) { 
-			if (d.properties[varname] <= 0) {
-				return; // count only positive values
-			}
-			return d.properties[varname];} );
-			
-			
-			
-			if (varname == "AVG_SCORE" ) {
-				var color_domain = [13.8, 15.34, 16.02, 16.52, 17.22];
-
-				var color = d3.scale.threshold()
-					.domain(color_domain)
-			} else {										
-				var color = d3.scale.quantize().domain([min_value, max_value]);
-			}
-				
-			
-		color.range(colorScheme[quantiles].slice(2, 2 + 6));
-			
-
-			// Bind data
-			map = svg
-			  .selectAll("path")
-			  .data(nyc.features);			
-			// Enter data
-			map.enter().append("path")
-			.attr("class", function(d){ return d.properties.name; })
-			.attr("d", path)
-			.on("mouseover",mouseover)
-			.on("mouseout",mouseout)
-			// Update			
-			map.transition()
-			  .duration(1000)
-			  .style("fill",function(d){return getColor(color, d, varname);});
-			// Exit
-			map.exit().remove();
-			
-
-			
-			
-		var legendtext = svg.selectAll("text").data(color.range());
-		legendtext.attr("class", "update");
-			
-		legendtext.enter().append("text").attr("class","enter").attr("x", width - 755 + xlegend)
-			.attr("y", function(d, i) {
-			   return i * 20 + 4 + ylegend;
-			})
-			.attr("dy", "0.8em");
-
-		legendtext.text(function(d,i) {
-				var extent = color.invertExtent(d);
-				if(i == 0) {
-					extent[0] = min_value;
-				}
-				else if(i == 5) {
-					extent[1] = max_value;
-				}
-				var format = d3.format(display_format);
-				return format(+extent[0]) + " - " + format(+extent[1]);
-			})
-		legendtext.exit().remove();				
-	
-	
-		});
-	}
-	
-
-	
-	
-	
-	
-	function mouseover(d){
-		var avgscore = d3.round(d.properties["AVG_SCORE"],2);
-		var text="Restaurants: "+d.properties["N_REST"] + "<br/>"
-			+ "Average score: " + (avgscore < 0 ? "nan" : avgscore) + "<br/>"
-			+ "Borough: " + d.properties["PO_NAME"] + "<br/>"
-			+ "ZIP code: " + d.properties["ZIP"];
-		$(".mouseover").html(text);
-		$(".mouseover").css("display","inline");
-	}
-
-	function mouseout(){
-		d3.select("#arcSelection").remove();
-		$(".mouseover").text("");
-		$(".mouseover").css("display","none");
-	}
-	
-	// moves the mouseover box whenever the mouse is moved.
-	d3.select('html') // Selects the 'html' element
-		.on('mousemove', function()
-		{
-			var locs=d3.mouse(this);	// get the mouse coordinates
-
-			// add some padding
-			locs[0]+=15;
-			locs[1]+=5;
-
-			$("div.mouseover").css("margin-left",locs[0]);
-			$("div.mouseover").css("margin-top",locs[1]);
-		});
+	makeMap("#chart");
 </script>
+
+
+
 
 
 <h3>Cuisine Types</h3>
 <p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
 
+<div id="bar-controls" class="test">
+  <input name="mode" type="radio" value="N_REST" id="mode-nrest" class="bar-frequency" checked><label for="mode-nrest"> Frequency </label>
+  <input name="mode" type="radio" value="AVG_SCORE" id="mode-score" class="bar-score"><label for="mode-score"> Average score</label>
+</div>
+
+<div id="map" align="center"></div>
+<script>
+	makeBarPlot("#map");
+</script>
+
+
 
 
 <h3>User Reviews</h3>
 <p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+
+
 
 
 
