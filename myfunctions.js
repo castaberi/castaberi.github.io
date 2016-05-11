@@ -122,7 +122,7 @@ function makeMap(dname) {
 			display_format = ".2f";
 		}
 		
-		d3.json("data/nyc_zip.json", function(error, nyc) {
+		d3.json("nyc_zip.json", function(error, nyc) {
 			// Set the colour domain
 			var max_value = d3.max(d3.values(nyc.features), function(d) { return d.properties[varname];} );
 			var min_value = d3.min(d3.values(nyc.features), function(d) { 
