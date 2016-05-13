@@ -201,7 +201,7 @@ function makeMap(dname) {
 		var avgscore = d3.round(d.properties["AVG_SCORE"],2);
 		var text="Restaurants: "+d.properties["N_REST"] + "<br/>"
 			+ "Average score: " + (avgscore < 0 ? "nan" : avgscore) + "<br/>"
-			+ "Borough: " + d.properties["PO_NAME"] + "<br/>"
+			+ "Region: " + d.properties["PO_NAME"] + "<br/>"
 			+ "ZIP code: " + d.properties["ZIP"];
 		$(".mouseover").html(text);
 		$(".mouseover").css("display","inline");
@@ -247,8 +247,8 @@ function makeMap(dname) {
 // Function for making bar chart
 function makeBarPlot(dname) {
 
-	var margin = {top: 50, right: 20, bottom: 30, left: 50},
-		width = 800 - margin.left - margin.right,
+	var margin = {top: 50, right: 70, bottom: 30, left: 50},
+		width = 700 - margin.left - margin.right,
 		height = 400 - margin.top - margin.bottom;
 
 	var xbar = d3.scale.ordinal()
@@ -271,6 +271,10 @@ function makeBarPlot(dname) {
 		.attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+
+		
+		
 
 	d3.csv("categoriesfrequency.csv", type, function(error, data) {
 	  varname = "frequency";
@@ -307,8 +311,10 @@ function makeBarPlot(dname) {
 		  .on("mouseover",function(d){ return mouseover_bar(d, varname);})
 		  .on("mouseout",mouseout);
 		  
+		  
 		// Exits
 		bar.exit().remove();
+		
 
 	});
 
@@ -327,15 +333,13 @@ function makeBarPlot(dname) {
 				ybar.domain([0, d3.max(data, function(d) { return d[varname]; })]);
 				xbar.domain(data.map(function(d) { return d.cat; }));
 				
-				var dataAvg = d3.sum(data, function(d) { return d[varname]; }) / data.length; 
-				console.log(dataAvg);
-				
 				
 				// Bind
 				var bars = svg.selectAll(".bar").data(data);
 				
 				// Enter
 				bars.enter().append("rect").attr("class", "bar");
+				
 				
 				// Update
 				bars.transition()
@@ -367,12 +371,36 @@ function makeBarPlot(dname) {
 				  .attr("dy", ".100em")
 				  .style("text-anchor", "end")
 				  .text(varname);
+				  
+				  
+				 
+				 
+				if (varname == "score") {  		
+				var dataAvg = d3.sum(data, function(d) { return d[varname]; }) / data.length; 
+				lines = svg.selectAll(".avgline")
+					.data(data)
+					.enter()
+					.append("line")
+					.attr("class", "avgline")
+					.style("stroke", "black")
+					.style("stroke-dasharray", ("3, 3"))
+					.attr("x1", xbar("African"))
+					.attr("y1", ybar(dataAvg))
+					.attr("x2", xbar("Cafe")+xbar.rangeBand())
+					.attr("y2", ybar(dataAvg))
+					.style("stroke-opacity", 0.5)
+					.on("mouseover",function(d){ return mouseover_line(d, dataAvg);})
+					.on("mouseout",mouseout);
+				} else {
+					svg.selectAll(".avgline").remove();
+				}
+				  
 								
 			});								
 		}
 
 		
-		dict = {"American": "'American','Californian','Creole', 'Cajun','Creole/Cajun','Southwestern', 'Hawaiian','Polynesian', 'Barbecue', 'Steak'",
+		dict = {"American": "'American', 'Californian', 'Creole', 'Cajun', 'Creole/Cajun', 'Southwestern', 'Hawaiian', 'Polynesian', 'Barbecue', 'Steak'",
 			"Chinese": "'Chinese', 'Chinese/Cuban'",
 			"Fast Food": "'Pizza', 'Hotdogs', 'Hamburgers'",
 			"Italian": "'Italian', 'Pizza/Italian'",
@@ -384,13 +412,20 @@ function makeBarPlot(dname) {
 			"Bakery": "Bakery",
 			"Mediterranean": "'Mediterranean', 'French', 'Portuguese', 'Spanish', 'Greek', 'Turkish'",
 			"Seafood": "Seafood",
-			"Other": "'Other', 'Ice cream [...]', 'Juice, Smoothies, Fruit Salads', 'Bottled beverages', 'Fruits/vegatables', 'Nuts/Confectionary', 'Chicken', 'Delicatessen', 'Sandwiches','Salads','Tapas','Vegetarian', 'Pancakes/Waffles', 'Soups', 'Jewish/Kosher', 'Bagels/Pretzels', 'Hotdogs/Pretzels'"};
+			"Other": "'Other', 'Ice cream [...]', 'Juice, Smoothies, Fruit Salads', 'Bottled beverages', 'Fruits/vegatables', 'Nuts/Confectionary', 'Chicken', 'Delicatessen', 'Sandwiches', 'Salads', 'Tapas', 'Vegetarian', 'Pancakes/Waffles', 'Soups', 'Jewish/Kosher', 'Bagels/Pretzels', 'Hotdogs/Pretzels'"};
 		
 		
 		
 		function mouseover_bar(d, varname){
 			//var text=varname + ": <span style='color:red'>"+ d3.round(d[varname],4) + "</span>";
-			var text = dict[d.cat];
+			var text = "<b>Cuisine descriptions:</b><br></br>" + dict[d.cat];
+			$(".mouseover").html(text);
+			$(".mouseover").css("display","inline");
+		}
+		
+		function mouseover_line(d, avg){
+			//var text=varname + ": <span style='color:red'>"+ d3.round(d[varname],4) + "</span>";
+			var text = "Grand average: " + d3.round(avg, 3);
 			$(".mouseover").html(text);
 			$(".mouseover").css("display","inline");
 		}
@@ -399,7 +434,7 @@ function makeBarPlot(dname) {
 			d3.select("#arcSelection").remove();
 			$(".mouseover").text("");
 			$(".mouseover").css("display","none");
-			$(".mouseover").css("width", "25%");
+			$(".mouseover").css("width", "120px");
 		}
 		
 		// moves the mouseover box whenever the mouse is moved.
@@ -423,4 +458,128 @@ function makeBarPlot(dname) {
 		$('.bar-frequency').on('click',function(){updateData("frequency")});
 		$('.bar-score').on('click',function(){updateData("score")});
 		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Fuction for making scatter plot
+function makeScatter(dname) {
+	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 700 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+	var x = d3.scale.linear()
+		.range([0, width]);
+
+	var y = d3.scale.linear()
+		.range([height, 0]);
+
+	var color = d3.scale.category10();
+
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom");
+
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.orient("left");
+
+	var svg = d3.select(dname).append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	d3.csv("scores.csv", function(error, data) {
+	  if (error) throw error;
+	  var xvar = "RATING_YELP";
+	  var yvar = "AVGSCORE";
+	  
+	  
+	  
+	  data.forEach(function(d) {
+		d[xvar] = +d[xvar];
+		d[yvar] = +d[yvar];
+	  });
+
+	  //x.domain(d3.extent(data, function(d) { return d[xvar]; })).nice();
+	  x.domain([1,5]);
+	  y.domain(d3.extent(data, function(d) { return d[yvar]; })).nice();
+
+	  svg.append("g")
+		  .attr("class", "xs axis")
+		  .attr("transform", "translate(0," + height + ")")
+		  .style("font-size","15px")
+		  .call(xAxis)
+		.append("text")
+		  .attr("class", "label")
+		  .attr("x", width)
+		  .attr("y", -6)
+		  .style("text-anchor", "end")
+		  .text("Yelp Review");
+
+	  svg.append("g")
+		  .attr("class", "y axis")
+		  .style("font-size","15px")
+		  .call(yAxis)
+		.append("text")
+		  .attr("class", "label")
+		  .attr("transform", "rotate(-90)")
+		  .attr("y", 6)
+		  .attr("dy", ".71em")
+		  .style("text-anchor", "end")
+		  .text("Average Inspecection Score")
+
+	  svg.selectAll(".dot")
+		  .data(data)
+		.enter().append("circle")
+		  .attr("class", "dot")
+		  .attr("r", 1)
+		  .attr("cx", function(d) { return x(d[xvar]); })
+		  .attr("cy", function(d) { return y(d[yvar]); })  
+
+	});
+	
+		d3.selectAll(".filter_button").on("change", function () {
+		var selected = this.value, 
+		display = this.checked ? "inline" : "none";
+		svg.selectAll(".dot")
+		.filter(function(d) { return d.CUISINE == selected; })
+		.attr("display", display);
+	});
+
+	d3.selectAll(".all_button").on("click", function () {
+		var selected = this.value;
+		if(selected == "check") {
+			checkAll();
+		}
+		if(selected == "uncheck") {
+			uncheckAll();
+		}
+	});
+
+	
+
+	function checkAll() {
+		d3.selectAll('.filter_button').property('checked', true);	
+		svg.selectAll(".dot").attr("display", "inline");	
+	}
+	
+	function uncheckAll() {
+		d3.selectAll('.filter_button').property('checked', false);
+		svg.selectAll(".dot").attr("display", "none");
+	}
+	
+	
 }
