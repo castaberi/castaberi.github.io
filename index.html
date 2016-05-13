@@ -96,6 +96,7 @@
 		  width: 940px;
 		  padding: 10px;
 		  z-index: 1;
+		  font-size: 14px;
 		}
 
 
@@ -104,6 +105,7 @@
 		  width: 940px;
 		  padding: 10px;
 		  z-index: 1;
+		  font-size: 14px;
 		}
 
 						
@@ -131,6 +133,11 @@
 		  shape-rendering: crispEdges;
 		}	
 		
+		
+		.dot {
+		  stroke: #000;
+		}
+				
 		
 	</style>
 </head>
@@ -180,7 +187,11 @@
 <p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is site where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>.</p>
 
 <h3>Geographical Information</h3>
-<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+<p>The map of New York City visualises the distribution of the restaurants in NYC as well as the average scores. We see that Manhattan, the most densely populated borough of NYC, also has a relatively large number of restaurants.</p>
+
+<p>Toggling to the average scores, we notice that the average score above 13 corresponding to the grade B. However, most restuarant do in fact currently have the grade A. This is caused by most restuarant earning the grade A only upon reinspection. It should be noted that because most restaurants have scores around 15-17 with some outliers, we have chosen to use score colour intervals for the choropleth such that the number of restaurants within each intervals is about equal. Toggling between the number of restaurants and average scores, it does appear that lowest performing regions, are those which lie in some distance around Manhattan.</p>
+
+<p>Discuss whether geo information can be used to predict scores.</p>
 
 <div id="map-controls">
   <input name="mode1" type="radio" value="N_REST" id="mode-map-nrest" class="map-nrest" checked><label for="mode-map-nrest"> Number of restaurants</label>
@@ -196,8 +207,7 @@
 
 
 <h3>Cuisine Types</h3>
-<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
-
+<p>The data contain a total of 83 distinct cusine descriptions. We have grouped these into 13 categories the distribution of which is shown in the bar chart below. The cuisine descriptions for each category can be seen by holding the curser over each bar. The american cuisine is plentiful but foregin cuines such as Aisian and Latin are popular too.</p>
 <div id="bar-controls" class="test">
   <input name="mode" type="radio" value="N_REST" id="mode-nrest" class="bar-frequency" checked><label for="mode-nrest"> Frequency </label>
   <input name="mode" type="radio" value="AVG_SCORE" id="mode-score" class="bar-score"><label for="mode-score"> Average score</label>
@@ -208,19 +218,44 @@
 	makeBarPlot("#map");
 </script>
 
+<p>Toggling to the average scores, we notice that all cuisine categories performing below the average of the categories are foreign cuisines. In particular, African restaurants perform the worst, possibly owing to the fact that hands are used a lot in preparing the food - something that might explain low scores for other cuines as well. As such, the type of cuisine may be an important factor in predicting the food safety of a restaurant.</p>
+
+<p>The average inspection score is lowest in cafes. This is hardly surprising since cafes mainly deal with drinks (coffee and tea) much less than they deal with food as other restaurants. For similar reasons the category "Other" scores quite low. This majority of restaurants in this category deal with low-risk food such as ice creams, juice and so on.</p>
 
 
 
 <h3>User Reviews</h3>
-<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+<p>Do Yelp reviews provide any information about food safety?</p>
 
+
+<div class="filter_options">
+<button class="all_button" type='button' value="check">Check All</button>
+<button class="all_button" type='button' value="uncheck">Uncheck All</button><br>
+<input class="filter_button" value="African" id="a_button" type="checkbox" checked="checked">African</input>&nbsp;
+<input class="filter_button" value="American" id="b_button" type="checkbox" checked="checked">American</input>&nbsp;
+<input class="filter_button" value="Asian" id="c_button" type="checkbox" checked="checked">Asian</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Bakery" id="d_button" type="checkbox" checked="checked">Bakery</input><br>
+<input class="filter_button" value="Cafe" id="e_button" type="checkbox" checked="checked">Cafe</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Chinese" id="f_button" type="checkbox" checked="checked">Chinese</input>&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="European" id="g_button" type="checkbox" checked="checked">European</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Fast Food" id="h_button" type="checkbox" checked="checked">Fast Food</input><br>
+<input class="filter_button" value="Italian" id="i_button" type="checkbox" checked="checked">Italian</input>&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Latin" id="j_button" type="checkbox" checked="checked">Latin</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Mediterranean" id="k_button" type="checkbox" checked="checked">Mediterranean</input>&nbsp;
+<input class="filter_button" value="Other" id="l_button" type="checkbox" checked="checked">Other</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="filter_button" value="Seafood" id="m_button" type="checkbox" checked="checked">Seafood</input><br>
+</div>
+<div id="scatter" align="center"></div>
+<script>
+	makeScatter("#scatter");
+</script>
 
 
 
 
 
 <h3>Discussion</h3>
-<p>Cras vel nisl lectus, sit amet dictum ante. Suspendisse odio turpis, imperdiet non suscipit sed, euismod vel nisl. Nulla blandit tortor sit amet justo auctor sed feugiat sem pharetra. Aenean vel tincidunt ante. Integer sagittis molestie est et bibendum. Duis aliquam hendrerit elit, sed tincidunt magna eleifend sed.</p>
+<p>In our analysis we have used the average DOHMH inspection scores as a measure for the hygiene of a restaurant.  However, it should be noted that <a href="http://www.businessinsider.com/whats-wrong-with-nyc-restaurant-ratings-2014-3?IR=T" target="_blank">criticism of the scoring system</a> can be drawn.</p>
 
 
 
