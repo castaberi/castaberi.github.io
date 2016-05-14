@@ -247,7 +247,7 @@ function makeMap(dname) {
 // Function for making bar chart
 function makeBarPlot(dname) {
 
-	var margin = {top: 50, right: 70, bottom: 30, left: 50},
+	var margin = {top: 50, right: 70, bottom: 55, left: 50},
 		width = 700 - margin.left - margin.right,
 		height = 400 - margin.top - margin.bottom;
 
@@ -284,17 +284,23 @@ function makeBarPlot(dname) {
 	  svg.append("g")
 		  .attr("class", "x axis")
 		  .attr("transform", "translate(0," + height + ")")
-		  .style("font-size","11px")
-		  .call(xbarAxis);
+		  .style("font-size","12px")
+		  .call(xbarAxis)
+		    .selectAll("text")
+			.attr("y", 8)
+			.attr("x", 8)
+			.attr("dy", ".35em")
+			.attr("transform", "rotate(35)")
+			.style("text-anchor", "start");
 
 	  svg.append("g")
 		  .attr("class", "y axis")
-		  .style("font-size","13px")
+		  .style("font-size","12px")
 		  .call(ybarAxis)
 		.append("text").attr("class", "ylab")
 		  .attr("transform", "rotate(-90)")
 		  .attr("y", 7)
-		  .attr("dy", ".100em")
+		  .attr("dy", "-3.50em")
 		  .style("text-anchor", "end")
 		  .text(varname);
 
@@ -363,12 +369,18 @@ function makeBarPlot(dname) {
 				  .attr("class", "x axis")
 				  .attr("transform", "translate(0," + height + ")")
 				  //attr("transform", function(d) { return "rotate(-65)" })
-				  .call(xbarAxis);
+				  .call(xbarAxis)
+					.selectAll("text")
+					.attr("y", 8)
+					.attr("x", 8)
+					.attr("dy", ".35em")
+					.attr("transform", "rotate(35)")
+					.style("text-anchor", "start");
 				// Update y labels
 				svg.selectAll(".ylab")
 				  .attr("transform", "rotate(-90)")
 				  .attr("y", 7)
-				  .attr("dy", ".100em")
+				  .attr("dy", "-3.50em")
 				  .style("text-anchor", "end")
 				  .text(varname);
 				  
@@ -559,27 +571,22 @@ function makeScatter(dname) {
 		.attr("display", display);
 	});
 
-	d3.selectAll(".all_button").on("click", function () {
+
+	
+	
+	d3.selectAll("#opts").on("click", function () {
 		var selected = this.value;
-		if(selected == "check") {
-			checkAll();
-		}
-		if(selected == "uncheck") {
-			uncheckAll();
-		}
+				
+		if(selected == "All") {
+			svg.selectAll(".dot").attr("display", "inline");	
+		} else {
+			svg.selectAll(".dot").attr("display", "none");
+			svg.selectAll(".dot")
+			.filter(function(d) { return d.CUISINE == selected; })
+			.attr("display", "inline");
+		}	
+		
 	});
-
-	
-
-	function checkAll() {
-		d3.selectAll('.filter_button').property('checked', true);	
-		svg.selectAll(".dot").attr("display", "inline");	
-	}
-	
-	function uncheckAll() {
-		d3.selectAll('.filter_button').property('checked', false);
-		svg.selectAll(".dot").attr("display", "none");
-	}
 	
 	
 }
