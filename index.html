@@ -28,11 +28,6 @@
 <link rel='stylesheet' id='clutterless-css'  href='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/style.css?ver=1.6' type='text/css' media='all' />
 <link rel='stylesheet' id='google-webfonts-nc-css'  href='http://fonts.googleapis.com/css?family=News+Cycle%3A400&#038;ver=4.5.2' type='text/css' media='all' />
 <link rel='stylesheet' id='google-webfonts-mw-css'  href='http://fonts.googleapis.com/css?family=Merriweather%3A700&#038;ver=4.5.2' type='text/css' media='all' />-->
-<!--<link rel='stylesheet' id='sccss_style-css'  href='http://hitdelete.com/demo-clutterless?sccss=1&#038;ver=4.5.2' type='text/css' media='all' />
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js?ver=4.5.2'></script>
-<!-- <script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/jquery.fitvids.min.js?ver=4.5.2'></script>-->
-<!--<script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/clutterless-fitvids.js?ver=4.5.2'></script>-->
-<!--<script type='text/javascript' src='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/js/css-browser-selector.js?ver=4.5.2'></script>-->
 <link rel='https://api.w.org/' href='http://hitdelete.com/demo-clutterless/wp-json/' />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://hitdelete.com/demo-clutterless/xmlrpc.php?rsd" />
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://hitdelete.com/demo-clutterless/wp-includes/wlwmanifest.xml" /> 
@@ -166,8 +161,11 @@
   </div><!-- .post-title -->
 
   <div class="post-content">
-      <p>New York City is home to more than 24,000 food establishments of various sorts which we shall simply refer to collectively as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, you can read the <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59" target="_blank">DOHMH Blue Book</a>. </p>
-<p>Our <strong>goal</strong> is to investigate if it is possible to tell something about the hygiene and food safety of a restaurant based only on simple and readily available information such as the cuisine type and location of the restaurant. We will focus on the inspection scores as a measure for the hygiene of a restaurant. </p>
+      <p>New York City is home to more than 24,000 food establishments of various sorts. We will here simply refer all to such food establishments as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, we refer to the <a href="http://www.nyc.gov/html/doh/downloads/pdf/rii/blue-book.pdf" target="_blank">DOHMH Blue Book</a>. </p>
+<p>Our <strong>goal</strong> is to investigate if it is possible to tell something about the hygiene and food safety of a restaurant based only information that is readily available to a potential customer. This could be information such as the type of cuisine and location of the restaurant. We will focus on the inspection scores as a measure for the overall food safety and hygiene of a restaurant. </p>
+<p>The analysis presented here is performed through plots but the results are based on various models fitted in Python. Our more model-based analysis in Python can be found in our Python notebook (LINK TO PYTHON NOTEBOOK).</p>
+
+
 
 
 
@@ -175,21 +173,30 @@
 
 
 <h3>The Data</h3>
-<p>The data on the NYC restaurant inspections are available on <a href='http://www.nyc.gov/html/doh/downloads/pdf/rii/blue-book.pdf' target="_blank">NYC Open Data</a>. In its entirety the data consist of about 560,000 records each corresponding to a single inspection. For each record there is information about the</p>
+<p>The data on the NYC restaurant inspections are available on <a href='https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/xx67-kt59' target="_blank">NYC Open Data</a>. In its entirety the data consist of about 560,000 records each corresponding to a single inspection. For each record there is information about the</p>
 <ul>
 <li>name and address of the restaurant</li>
-<li>cuisine</li>
+<li>type of cuisine</li>
 <li>date of inspection</li>
 <li>type of violations</li>
 <li>grade and score</li>
 </ul>
-<p>Since each restaurant may have been scored multiple times, we use the average score as a measure for a restaurant’s overall hygiene level. After some data cleansing we end up with a data set of 24,877 unique restaurant.</p>
-<p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is site where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>.</p>
+<p>Since each restaurant may have been scored multiple times, we use the average score as a measure for a restaurant’s overall hygiene level. After some data cleansing we end up with a data set of 24,877 unique restaurants.</p>
+<p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is a website where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>.</p>
+
+
+
+
+
+
+
+
+
 
 <h3>Geographical Information</h3>
 <p>The map of New York City visualises the distribution of the restaurants in NYC as well as the average scores. We see that Manhattan, the most densely populated borough of NYC, also has a relatively large number of restaurants.</p>
 
-<p>Toggling to the average scores, we notice that the average score above 13 corresponding to the grade B. However, most restuarant do in fact currently have the grade A. This is caused by most restuarant earning the grade A only upon reinspection. It should be noted that because most restaurants have scores around 15-17 with some outliers, we have chosen to use score colour intervals for the choropleth such that the number of restaurants within each intervals is about equal. Toggling between the number of restaurants and average scores, it does appear that lowest performing regions, are those which lie in some distance around Manhattan.</p>
+<p>Toggling to the average scores, we notice that the average score above 13 corresponding to the grade B. However, most restuarants do in fact currently have the grade A. This is caused by most restuarant earning the grade A only upon reinspection. It should be noted that because most restaurants have scores around 15-17 with some outliers, we have chosen to use score colour intervals for the choropleth such that the number of restaurants that fall within each interval is about equal. Toggling between the number of restaurants and average scores, it does appear that lowest performing regions, are those which lie in some distance around Manhattan.</p>
 
 <p>Discuss whether geo information can be used to predict scores.</p>
 
@@ -206,8 +213,13 @@
 
 
 
+
+
+
+
+
 <h3>Cuisine Types</h3>
-<p>The data contain a total of 83 distinct cusine descriptions. We have grouped these into 13 categories the distribution of which is shown in the bar chart below. The cuisine descriptions for each category can be seen by holding the curser over each bar. The american cuisine is plentiful but foregin cuines such as Aisian and Latin are popular too.</p>
+<p>The data contain a total of 83 distinct cusine descriptions. We have grouped these into 13 categories to ease the analysis and get rid of very small groups. The distribution of cuisine types is shown in the bar chart below. The cuisine descriptions for each category can be seen by holding the curser over each bar. We see that the american cuisine is plentiful in NYC but foregin cuines such as Aisian and Latin are very popular too.</p>
 <div id="bar-controls" class="test">
   <input name="mode" type="radio" value="N_REST" id="mode-nrest" class="bar-frequency" checked><label for="mode-nrest"> Frequency </label>
   <input name="mode" type="radio" value="AVG_SCORE" id="mode-score" class="bar-score"><label for="mode-score"> Average score</label>
@@ -220,31 +232,42 @@
 
 <p>Toggling to the average scores, we notice that all cuisine categories performing below the average of the categories are foreign cuisines. In particular, African restaurants perform the worst, possibly owing to the fact that hands are used a lot in preparing the food - something that might explain low scores for other cuines as well. As such, the type of cuisine may be an important factor in predicting the food safety of a restaurant.</p>
 
-<p>The average inspection score is lowest in cafes. This is hardly surprising since cafes mainly deal with drinks (coffee and tea) much less than they deal with food as other restaurants. For similar reasons the category "Other" scores quite low. This majority of restaurants in this category deal with low-risk food such as ice creams, juice and so on.</p>
+<p>The average inspection score is lowest in cafes. This is hardly surprising since cafes mainly deal with drinks (coffee and tea) much less than they deal with food as other restaurants. For similar reasons the category "Other" scores quite low. The majority of restaurants in this category also deal with low-risk food such as ice creams, juice and so on.</p>
+
+
+
+
+
+
+
+
 
 
 
 <h3>User Reviews</h3>
-<p>Do Yelp reviews provide any information about food safety?</p>
+<p>As previously mentioned we have fetched user reviews on the restaurants from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a>. The intention is then to investigate if such user reviews can be used to say anything about the food safety of a restaurant in general. Yelp users can give a restaurant 1 to 5 stars and the overall Yelp review is taken as an average of the user reviews. We have only considered restaurants which have at least 5 reviews in order for the average review to be somewhat reliable. Unfortunately, only about 700 of the restaurants have been reviewed on Yelp and only about 600 of those have at least 5 reviews. Therefore a many restaurants have been left out of our analysis with Yelp scores.</p>
 
 
-<div class="filter_options">
-<button class="all_button" type='button' value="check">Check All</button>
-<button class="all_button" type='button' value="uncheck">Uncheck All</button><br>
-<input class="filter_button" value="African" id="a_button" type="checkbox" checked="checked">African</input>&nbsp;
-<input class="filter_button" value="American" id="b_button" type="checkbox" checked="checked">American</input>&nbsp;
-<input class="filter_button" value="Asian" id="c_button" type="checkbox" checked="checked">Asian</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Bakery" id="d_button" type="checkbox" checked="checked">Bakery</input><br>
-<input class="filter_button" value="Cafe" id="e_button" type="checkbox" checked="checked">Cafe</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Chinese" id="f_button" type="checkbox" checked="checked">Chinese</input>&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="European" id="g_button" type="checkbox" checked="checked">European</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Fast Food" id="h_button" type="checkbox" checked="checked">Fast Food</input><br>
-<input class="filter_button" value="Italian" id="i_button" type="checkbox" checked="checked">Italian</input>&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Latin" id="j_button" type="checkbox" checked="checked">Latin</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Mediterranean" id="k_button" type="checkbox" checked="checked">Mediterranean</input>&nbsp;
-<input class="filter_button" value="Other" id="l_button" type="checkbox" checked="checked">Other</input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input class="filter_button" value="Seafood" id="m_button" type="checkbox" checked="checked">Seafood</input><br>
-</div>
+
+<p>From our analysis, and as can be seen from the scatterplot below, we find there is no immediate connection between a Yelp review and the inspection score that a restaurant receives.</p>
+
+<b>Cuisine</b>:
+<select id = "opts">
+<option value="All">All</option>
+<option value="African">African</option> 
+<option value="American">American</option>
+<option value="Asian">Asian</option>
+<option value="Bakery">Bakery</option>
+<option value="Cafe">Cafe</option>
+<option value="Chinese">Chinese</option>
+<option value="European">European</option>
+<option value="Fast Food">Fast Food</option>
+<option value="Italian">Italian</option>
+<option value="Latin">Latin</option>
+<option value="Mediterranean">Mediterranean</option>
+<option value="Seafood">Seafood</option>
+<option value="Other">Other</option>
+</select> 
 <div id="scatter" align="center"></div>
 <script>
 	makeScatter("#scatter");
@@ -254,9 +277,16 @@
 
 
 
-<h3>Discussion</h3>
-<p>In our analysis we have used the average DOHMH inspection scores as a measure for the hygiene of a restaurant.  However, it should be noted that <a href="http://www.businessinsider.com/whats-wrong-with-nyc-restaurant-ratings-2014-3?IR=T" target="_blank">criticism of the scoring system</a> can be drawn.</p>
 
+
+
+
+<h3>Discussion</h3>
+<p>In our analysis we have used the average DOHMH inspection scores as a measure for the hygiene of a restaurant.  However, it should be noted that <a href="http://www.businessinsider.com/whats-wrong-with-nyc-restaurant-ratings-2014-3?IR=T" target="_blank">criticism of the scoring system</a> can be drawn. Among the points raised are that scores are dependent on the individual inspector and that certain of the DHOMH rules are culturally biased. It should therefore be remembered that the inspection scores are by no means a perfect indicator of the food safety.</p>
+
+
+
+<p>Overall we have found that (CONCLUSION)</p>
 
 
 
