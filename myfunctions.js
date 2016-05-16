@@ -517,8 +517,7 @@ function makeScatter(dname) {
 	  if (error) throw error;
 	  var xvar = "RATING_YELP";
 	  var yvar = "AVGSCORE";
-	  
-	  
+	  	  
 	  
 	  data.forEach(function(d) {
 		d[xvar] = +d[xvar];
