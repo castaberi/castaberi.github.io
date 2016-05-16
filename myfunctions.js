@@ -456,8 +456,8 @@ function makeBarPlot(dname) {
 				var locs=d3.mouse(this);	// get the mouse coordinates
 
 				// add some padding
-				locs[0]+=15;
-				locs[1]+=5;
+				locs[0]+=10;
+				locs[1]+=-80;
 
 				$("div.mouseover").css("margin-left",locs[0]);
 				$("div.mouseover").css("margin-top",locs[1]);
