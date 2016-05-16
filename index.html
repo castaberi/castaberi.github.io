@@ -27,7 +27,7 @@
 
 <link rel='stylesheet' id='clutterless-css'  href='http://407spxynzez3vk3mt1ov2n5i.wpengine.netdna-cdn.com/demo-clutterless/wp-content/themes/clutterless/style.css?ver=1.6' type='text/css' media='all' />
 <link rel='stylesheet' id='google-webfonts-nc-css'  href='http://fonts.googleapis.com/css?family=News+Cycle%3A400&#038;ver=4.5.2' type='text/css' media='all' />
-<link rel='stylesheet' id='google-webfonts-mw-css'  href='http://fonts.googleapis.com/css?family=Merriweather%3A700&#038;ver=4.5.2' type='text/css' media='all' />-->
+<link rel='stylesheet' id='google-webfonts-mw-css'  href='http://fonts.googleapis.com/css?family=Merriweather%3A700&#038;ver=4.5.2' type='text/css' media='all' />
 <link rel='https://api.w.org/' href='http://hitdelete.com/demo-clutterless/wp-json/' />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://hitdelete.com/demo-clutterless/xmlrpc.php?rsd" />
 <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://hitdelete.com/demo-clutterless/wp-includes/wlwmanifest.xml" /> 
@@ -163,7 +163,7 @@
   <div class="post-content">
       <p>New York City is home to more than 24,000 food establishments of various sorts. We will here simply refer all to such food establishments as “restaurants”. Each restaurant is occasionally inspected by the New York City Department of Health and Mental Hygiene (DOHMH) with the objective of ensuring food safety. After each inspection, a restaurant receives a score which is computed as a sum of violation points. The number of points a particular violation results in, depends on the severity of the violation. The final score is then converted into a grade of either “A”, “B” or “C”. Restaurants with a score of 13 or below receive an “A”, restaurants with a score between 14 and 27 receive a “B” and a score above 27 results in a “C”. For a more elaborate description of the inspection process and the types of violations, we refer to the <a href="http://www.nyc.gov/html/doh/downloads/pdf/rii/blue-book.pdf" target="_blank">DOHMH Blue Book</a>. </p>
 <p>Our <strong>goal</strong> is to investigate if it is possible to tell something about the hygiene and food safety of a restaurant based only information that is readily available to a potential customer. This could be information such as the type of cuisine and location of the restaurant. We will focus on the inspection scores as a measure for the overall food safety and hygiene of a restaurant. </p>
-<p>The analysis presented here is performed through plots but the results are based on various models fitted in Python. Our more model-based analysis in Python can be found in our Python notebook (LINK TO PYTHON NOTEBOOK).</p>
+<p>The analysis presented here is performed through plots but the results are based on various models fitted in Python. Our more model-based analysis in Python can be found in our <a href="http://nbviewer.jupyter.org/github/castaberi/castaberi.github.io/blob/master/Project%20Assignment%20B_Final_v2.ipynb" target="_blank">Python notebook</a>.</p>
 
 
 
@@ -182,7 +182,8 @@
 <li>grade and score</li>
 </ul>
 <p>Since each restaurant may have been scored multiple times, we use the average score as a measure for a restaurant’s overall hygiene level. After some data cleansing we end up with a data set of 24,877 unique restaurants.</p>
-<p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is a website where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>.</p>
+<p>Besides the data from NYC Open Data, we will also collect user review data from <a href="http://www.yelp.com/nyc" target="_blank">Yelp</a> which is a website where people can review restaurants. Data are collected using the <a href="https://www.yelp.dk/developers/documentation/v2/search_api" target="_blank">Yelp Search Api</a>. Each restaurant receives a Yelp score between 1 and 5. We investigate whether it is of benefit to a potential costumer to know anything about this Yelp score in the search of a safe place to eat in NYC.</p>
+<!--<p>The cleaned and concatenated datasets can be downloaded through (INSERT LINK TO DOWNLOAD OF FULL DATASET)</p>-->
 
 
 
@@ -196,9 +197,9 @@
 <h3>Geographical Information</h3>
 <p>The map of New York City visualises the distribution of the restaurants in NYC as well as the average scores. We see that Manhattan, the most densely populated borough of NYC, also has a relatively large number of restaurants.</p>
 
-<p>Toggling to the average scores, we notice that the average score above 13 corresponding to the grade B. However, most restuarants do in fact currently have the grade A. This is caused by most restuarant earning the grade A only upon reinspection. It should be noted that because most restaurants have scores around 15-17 with some outliers, we have chosen to use score colour intervals for the choropleth such that the number of restaurants that fall within each interval is about equal. Toggling between the number of restaurants and average scores, it does appear that lowest performing regions, are those which lie in some distance around Manhattan.</p>
+<p>Toggling to the average scores, we notice that the average score above 13 corresponding to the grade B. However, most restuarants do in fact currently have the grade A. This is caused by most restaurants earning the grade A only upon reinspection. It should be noted that because most restaurants have scores around 15-17 with some outliers, we have chosen to use score colour intervals for the choropleth such that the number of restaurants that fall within each interval is about equal. Toggling between the number of restaurants and average scores, it does appear that lowest performing regions, are those which lie in some distance around Manhattan.</p>
 
-<p>Discuss whether geo information can be used to predict scores.</p>
+<p>Through our machine learning models, namely a Random Forrest Regressor, we find that the location do indeed have some predictive power. Especially the lattitude (from west to east) is important in predicting the average inspection score. That the location is important is in good alignment with what we see on the choropleth.</p>
 
 <div id="map-controls">
   <input name="mode1" type="radio" value="N_REST" id="mode-map-nrest" class="map-nrest" checked><label for="mode-map-nrest"> Number of restaurants</label>
@@ -232,8 +233,7 @@
 
 <p>Toggling to the average scores, we notice that all cuisine categories performing below the average of the categories are foreign cuisines. In particular, African restaurants perform the worst, possibly owing to the fact that hands are used a lot in preparing the food - something that might explain low scores for other cuines as well. As such, the type of cuisine may be an important factor in predicting the food safety of a restaurant.</p>
 
-<p>The average inspection score is lowest in cafes. This is hardly surprising since cafes mainly deal with drinks (coffee and tea) much less than they deal with food as other restaurants. For similar reasons the category "Other" scores quite low. The majority of restaurants in this category also deal with low-risk food such as ice creams, juice and so on.</p>
-
+<p>The average inspection score is lowest in cafes. This is hardly surprising since cafes mainly deal with drinks (coffee and tea) much less than they deal with food as other restaurants. For similar reasons the category "Other" scores quite low. The majority of restaurants in this category also deal with low-risk food such as ice creams, juice and so on. Through our models we indeed find that if the potential customer knows that the restaurant lies within the category "Other" or "Cafe" she will be more successful in determining if the restaurant has a good inspection score. </p>
 
 
 
@@ -286,7 +286,9 @@
 
 
 
-<p>Overall we have found that (CONCLUSION)</p>
+<p>Overall we have found that potential customers do not have to worry about checking out the Yelp score before finding a safe place to eat. Notice that the actual reviews, i.e. the wording at Yelp, probably will contain some useful information for the potential customer, but the score itself does not. However, knowing where in NYC the restaurant is located and also whether the type of cuisine is categorised as "Other" or "Cafe" is helpful for the customer concerned about inspection scores.</p>
+
+<p> A more comprehensive analysis with access to more features for each restaurant, e.g. do they serve alcohol, opening hours, size, price range etc., could have been conducted. If such analysis were to be carried out, we would probably be able to determine other important features that a potential customer should worry about. We have, however, not been able to obtain such information. But such information is probably not readily available for a new potential customer and it may as such not be of interest to our overall goal. </p>
 
 
 
