@@ -424,7 +424,7 @@ function makeBarPlot(dname) {
 			"Bakery": "Bakery",
 			"Mediterranean": "'Mediterranean', 'French', 'Portuguese', 'Spanish', 'Greek', 'Turkish'",
 			"Seafood": "Seafood",
-			"Other": "'Other', 'Ice cream [...]', 'Juice, Smoothies, Fruit Salads', 'Bottled beverages', 'Fruits/vegatables', 'Nuts/Confectionary', 'Chicken', 'Delicatessen', 'Sandwiches', 'Salads', 'Tapas', 'Vegetarian', 'Pancakes/Waffles', 'Soups', 'Jewish/Kosher', 'Bagels/Pretzels', 'Hotdogs/Pretzels'"};
+			"Other": "'Other', 'Ice cream [...]', 'Juice, Smoothies, Fruit Salads', 'Bottled beverages','Caribbean', 'Fruits/vegatables', 'Nuts/Confectionary', 'Chicken', 'Delicatessen', 'Sandwiches', 'Salads', 'Tapas', 'Vegetarian', 'Pancakes/Waffles', 'Soups', 'Jewish/Kosher', 'Bagels/Pretzels', 'Hotdogs/Pretzels'"};
 		
 		
 		
